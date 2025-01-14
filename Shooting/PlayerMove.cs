@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Shoot
+namespace ShootingGame
 {
     public class PlayerMove : MonoBehaviour
     {

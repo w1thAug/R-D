@@ -19,7 +19,7 @@ namespace ShootingGame
 		private void move()
 		{
 			Vector3 dir = Vector3.up;
-			transform.position = dir * speed * Time.deltaTime;
+			transform.position += dir * speed * Time.deltaTime;
 		}
 		// Event Handlers
 		// Overrides
@@ -39,7 +39,11 @@ namespace ShootingGame
 		{
 		   
 		}
+        private void Update()
+        {
+			move();
+        }
 
-		// Unity Coroutine
-	}
+        // Unity Coroutine
+    }
 }
