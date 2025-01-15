@@ -6,33 +6,31 @@ namespace ShootingGame
 {
 	public class DestroyZone : MonoBehaviour
 	{
-        // Definitions
-        // Properties
-        // Methods
-        // Events
-
-
-
-        // Fields : caching
-        // Fields
-        // Functions
         // Event Handlers
         private void OnTriggerEnter(Collider other)
         {
-            Destroy(other.gameObject);
+			if (other.gameObject.name.Contains("Bullet") 
+				|| other.gameObject.name.Contains("Enemy"))
+			{
+				other.gameObject.SetActive(false);
+
+				if (other.gameObject.name.Contains("Bullet"))
+				{
+					PlayerFire player = GameObject.Find("Player").GetComponent<PlayerFire>();
+					player.AddBulletPool(other.gameObject);
+				}
+				else if (other.gameObject.name.Contains("Enemy"))
+				{
+                    EnemyManager enemyMgr = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+					enemyMgr.AddEnemyPool(other.gameObject);
+				}
+			}
         }
-        // Overrides
 
 
 
-        // Unity Inspectors
-        [Header("★ Bindings")]
-		[SerializeField] private Text labelTXT = null;
-		[Header("★ Config")]
-		[SerializeField] private int intValue = 0;
-
-		// Unity Messages
-		private void Awake()
+        // Unity Messages
+        private void Awake()
 		{
 		   
 		}
@@ -40,7 +38,5 @@ namespace ShootingGame
 		{
 		   
 		}
-
-		// Unity Coroutine
 	}
 }

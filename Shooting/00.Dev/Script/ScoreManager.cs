@@ -6,26 +6,30 @@ namespace ShootingGame
     public class ScoreManager : MonoBehaviour
     {
         // Definitions
+        public static ScoreManager Instance = null;
         // Properties
-        // Methods
-        public void SetScore(int value)
+        public int Score
         {
-            currScore = value;
-
-            currScoreText.text = "현재 점수 : " + currScore;
-
-            if (currScore > bestScore)
+            get
             {
-                bestScore = currScore;
-                bestScoreText.text = "최고 점수 : " + bestScore;
+                return currScore;
+            }
+            set
+            {
+                currScore = value;
 
-                PlayerPrefs.SetInt("Best Score", bestScore);
+                currScoreText.text = "현재 점수 : " + currScore;
+
+                if (currScore > bestScore)
+                {
+                    bestScore = currScore;
+                    bestScoreText.text = "최고 점수 : " + bestScore;
+
+                    PlayerPrefs.SetInt("Best Score", bestScore);
+                }
             }
         }
-        public int GetScore()
-        {
-            return currScore;
-        }
+        // Methods
         // Events
 
 
@@ -51,7 +55,7 @@ namespace ShootingGame
         // Unity Messages
         private void Awake()
         {
-
+            if (Instance == null) Instance = this;
         }
         private void Start()
         {
