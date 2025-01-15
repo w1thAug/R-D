@@ -40,6 +40,14 @@ namespace ShootingGame
         // Event Handlers
         private void OnCollisionEnter(Collision other)
         {
+			GameObject explosion = Instantiate(explosionFactory);
+            explosion.transform.position = transform.position;
+
+			GameObject scoreMgrObj = GameObject.Find("ScoreManager");
+			ScoreManager scoreMgr = scoreMgrObj.GetComponent<ScoreManager>();
+
+			scoreMgr.SetScore(scoreMgr.GetScore() + 1);
+
             Destroy(gameObject);
 			Destroy(other.gameObject);
         }
@@ -48,8 +56,10 @@ namespace ShootingGame
 
 
         // Unity Inspectors
+		[Header("★ Bindings")]
+        [SerializeField] private GameObject explosionFactory = null;
 		[Header("★ Config")]
-		[SerializeField] private float speed = 0f;
+        [SerializeField] private float speed = 0f;
 
 		// Unity Messages
 		private void Awake()
